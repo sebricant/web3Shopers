@@ -1,0 +1,158 @@
+<section class="content-main ml-40 mt-30 mr-40">
+  <div class="content-header">
+    <div>
+      <h2 class="content-title card-title">Order List </h2>
+      <p></p>
+    </div>
+    <div>
+      <input type="text" placeholder="Search order ID" class="form-control bg-white">
+    </div>
+  </div>
+  <div class="card mb-6">
+    <header class="card-header">
+      <div class="row gx-3">
+        <div class="col-lg-4 col-md-6 me-auto">
+          <input type="text" placeholder="Search..." class="form-control">
+        </div>
+        <div class="col-lg-2 col-6 col-md-3">
+          <select class="form-select">
+            <option>Status</option>
+            <option>Active</option>
+            <option>Disabled</option>
+            <option>Show all</option>
+          </select>
+        </div>
+        <div class="col-lg-2 col-6 col-md-3">
+          <select class="form-select">
+            <option>Show 20</option>
+            <option>Show 30</option>
+            <option>Show 40</option>
+          </select>
+        </div>
+      </div>
+    </header> <!-- card-header end// -->
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Payment Mode</th>
+              <th scope="col">Total</th>
+              <th scope="col">Status</th>
+              <th scope="col">Date</th>
+              <th scope="col"></th>
+              <th scope="col" class="text-end"> Action </th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <% orders.forEach(element=>{ %>
+            <% const getDate=(date)=>{
+                    let orderDate = new Date(date)
+                    let day = orderDate.getDate();
+                    let month = orderDate.getMonth();
+                    let year = orderDate.getFullYear();
+                console.log(day,"day",month,"month",year,"year");
+                    return `${isNaN(day)?00:day}-${isNaN(month)?00:month+1}-${isNaN(year)?0000:year}`
+                    } %>
+            <tr>
+              <td><%= element.orders._id %></td>
+              <td><b><%= element.orders.productDetails[0].productsName %></b></td>
+              <td><%= element.orders.paymentMethod %></td>
+              <td>$<%= element.orders.totalPrice %>.00</td>
+              <td> <% if (element.orders.productDetails[0].orderStatus == 'Canceled') {%>
+                <span class="badge rounded-pill alert-danger"><%= element.orders.productDetails[0].orderStatus %></span>
+                <% }else if((element.orders.productDetails[0].orderStatus == 'Returned')){ %>
+                <span class="badge rounded-pill alert-primary"><%= element.orders.productDetails[0].orderStatus %></span>
+                <% }else{ %>
+                <span class="badge rounded-pill alert-success"><%= element.orders.productDetails[0].orderStatus %></span>
+                <% } %>
+              </td>
+              <td><%- getDate(element?.orders?.createdAt) %></td>
+              <td  >
+                <% if (element.orders.productDetails[0].orderStatus == 'Canceled') {%>
+                  <button class="dropdown-item " style="color: grey;" type="button" >Order Canceled</button></td>
+                  <% }else if(element.orders.productDetails[0].orderStatus == 'Delivered') { %>
+                    <button class="dropdown-item  " style="color: blue;" type="button" onclick="returnOrder('<%= element.orders._id %>','<%= element.orders.productDetails[0]._id %>')">Return Order</button>
+                    <% }else if(element.orders.productDetails[0].orderStatus == 'Returned') { %>
+                    <button class="dropdown-item  " style="color: blue;" type="button" disabled>Order Returned</button>
+                    <% }else{ %>
+                  <button class="dropdown-item " style="color: red;" type="button" onclick="cancelOrder('<%= element.orders.productDetails[0]._id %>','<%= element.orders._id %>')">Cancel Order</button>
+                  <% } %>
+
+                  </td>
+
+              <td class="text-end">
+                <a href="/userOrderDetails/<%= element.orders._id %> " class="btn btn-md rounded font-sm">Detail</a>
+                
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div> <!-- table-responsive //end -->
+    </div> <!-- card-body end// -->
+  </div> <!-- card end// -->
+  <div class="pagination-area mt-15 mb-50">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-start">
+        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+        <li class="page-item"><a class="page-link" href="#">02</a></li>
+        <li class="page-item"><a class="page-link" href="#">03</a></li>
+        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+        <li class="page-item"><a class="page-link" href="#">16</a></li>
+        <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+      </ul>
+    </nav>
+  </div>
+</section> <!-- content-main end// -->
+
+
+<script>
+
+function cancelOrder(proId,orderId){
+    console.log(proId,orderId,"test101")
+  
+    
+        $.ajax({
+            url:"/cancelOrder",
+            data:{
+                proId:proId,
+                orderId:orderId,
+            },
+            method:'put',
+            success:(response)=>{
+                if (response.status){
+                    console.log(response);
+                  }
+                  location.reload()
+            }
+        })
+ 
+    
+}
+
+function returnOrder(orderId,proId){
+    $.ajax({
+      url:'/returnOrder',
+      method:'post',
+      data:{
+        orderId:orderId,
+        proId:proId,
+      }, beforeSend:()=>{
+        return confirm('are you sure')
+      },
+      success:(response)=>{
+        if(response.status){
+          location.reload()
+        }else{
+          return alert('already returned')
+        }
+      }
+    })
+  }
+
+
+</script>

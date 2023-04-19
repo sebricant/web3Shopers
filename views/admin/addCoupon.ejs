@@ -1,0 +1,321 @@
+<main class="main-wrap">
+  <header class="main-header navbar">
+    <div class="col-search">
+      <form class="searchform">
+        <div class="input-group">
+          <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+          <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+        </div>
+        <datalist id="search_terms">
+          <option value="Products">
+          <option value="New orders">
+          <option value="Apple iphone">
+          <option value="Ahmed Hassan">
+        </datalist>
+      </form>
+    </div>
+    <div class="col-nav">
+      <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link btn-icon" href="#">
+            <i class="material-icons md-notifications animation-shake"></i>
+            <span class="badge rounded-pill">3</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+        </li>
+        <li class="dropdown nav-item">
+          <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+            <a class="dropdown-item text-brand" href="#"><img src="/adminAssets/imgs/theme/flag-us.png" alt="English">English</a>
+            <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+            <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+            <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+          </div>
+        </li>
+        <li class="dropdown nav-item">
+          <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/adminAssets/imgs/people/avatar2.jpg" alt="User"></a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+            <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+            <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+            <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+            <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+            <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <section class="content-main">
+    <div class="row">
+      <div class="col-9">
+        <div class="content-header">
+          <h2 class="content-title">Add New Coupon</h2>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h4>Basic</h4>
+            </div>
+            <div class="card-body">
+              <div class="mb-4">
+                <div id="errorDisplay" class="text-center mx-auto text-danger mb-2"></div>
+                <label for="product_name" class="form-label">Coupon Name</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span onclick="generateCoupon()" class="input-group-text text-dark" id="basic-addon1">Generate Coupon</span>
+                  </div>
+                  <input required type="text" name="categories" placeholder="" class="form-control" id="couponName">
+                </div>
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Amount</label>
+                <select name="amount" class="form-control w-100 my-0" id="amountValidity">
+                  <option>100-500</option>
+                  <option>500-1000</option>
+                  <option>1000-5000</option>
+                  <option>5000-25000</option>
+                  <option>25000-50000</option>
+                  <option>50000-75000</option>
+                  <option>75000-100000</option>
+                  <option>100000-250000</option>
+                </select>
+              </div>
+              <div class="col-lg-4 mt-1">
+                <div class="mb-4">
+                  <label class="text-center mb-2">Discount Type</label><br>
+                  <input type="radio" onclick="show()" name="discountType" data-toggle="collapse" role="button" value="Amount" class="px-2 mx-2">Amount</input> <br>
+                  <input type="radio" onclick="show2()" name="discountType" data-toggle="collapse" role="button" value="Percentage" class="mx-2">Percentage</input><br>
+                </div>
+              </div>
+              <div class="col-lg-4 mt-1">
+                <div hidden class="discPer mb-4">
+                  <label for="" class="text-center">Discount Percentage</label>
+                  <input type="text" name="hey" id="discountPercentage" name="categories" class="form-control" required>
+                </div>
+              </div>
+              <div class="col-lg-4 mt-1">
+                <div hidden class="discAmount mb-4">
+                  <label for="" class="text-center">Discount Amount</label>
+                  <input type="text" name="hey" id="discountAmount" name="categories" class="form-control" required>
+                </div>
+                <div hidden class="discCap mb-4">
+                    <label for="" class="text-center">Capped Amount</label>
+                    <input hidden type="text" name="hey" id="capAmount" name="categories" class="form-control" required>
+                  </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="" class="text-center">Max Usage</label>
+              <input type="text" id="usageMax" class="form-control" name="maxUsage" required>
+            </div>
+            <div class="mb-4">
+              <label for="" class="text-center">Expiry Date</label>
+              <input type="date" id="validity" class="form-control" name="categories" required>
+            </div>
+            <div class="mb-4">
+              <label for="">Description</label>
+              <input type="text" id="description" class="form-control" name="description" required>
+            </div>
+          </div>
+          <button type="button" onclick="validatorCoupon()" class="btn btn-md rounded font-sm hover-up">Create Coupon</button>
+          </form>
+        </div>
+      </div> <!-- card end// -->
+    </div>
+  </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+     function show() {
+    let discA = document.querySelector('div.discAmount')
+    let discP = document.querySelector('div.discPer')
+    let cap = document.getElementById('capAmount')
+    let discC = document.querySelector('div.discCap')
+    discA.removeAttribute("hidden")
+    discP.setAttribute("hidden", "")
+    discC.setAttribute("hidden", "")
+    cap.setAttribute("hidden", "")
+  }
+
+  function show2() {
+    let discP = document.querySelector('div.discPer')
+    let discA = document.querySelector('div.discAmount')
+    let cap = document.getElementById('capAmount')
+    let discC = document.querySelector('div.discCap')
+    discC.removeAttribute("hidden")
+    discP.removeAttribute("hidden")
+    cap.removeAttribute("hidden")
+    discA.setAttribute("hidden", "")
+  }
+
+
+    function validatorCoupon() {
+      const couponName = document.getElementById('couponName').value
+      const amountValidity = document.getElementById('amountValidity')
+      const amountValidityValue = amountValidity.options[amountValidity.selectedIndex].text
+      const redeemTime = document.getElementById('usageMax').value.trim()
+      const validity = document.getElementById('validity').value.trim()
+      const description = document.getElementById('description').value
+      const discType = document.querySelector("input[name='discountType']:checked")
+      const discTypeValue = discType?.value
+      let discountAmount = document.getElementById('discountAmount').value.trim()
+      let cap = document.getElementById('capAmount').value.trim()
+      let discountPercentage = document.getElementById('discountPercentage').value.trim()
+
+      const amountValue = amountValidityValue.split("-")
+
+      const error = document.getElementById('errorDisplay')
+
+    let flag = 1
+
+
+    if (couponName == "") {
+      error.innerText = "Generate coupon"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (amountValidityValue == "Select an amount") {
+      error.innerText = "Please select an amount"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (discType == null) {
+      error.innerText = "Select Discount type"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (discountAmount == "" && discountPercentage == "") {
+      error.innerText = "Discount value is required"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (!discountAmount.match(/^\d+$/) && !discountPercentage.match(/^\d+$/)) {
+      error.innerText = "Discount value should be a number"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (redeemTime == "") {
+      error.innerText = "Max usage cannot be empty"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (!redeemTime.match(/^\d+$/)) {
+      error.innerText = "Max usage should be a number"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (redeemTime <= 0) {
+      error.innerText = "Max usage should be a greater than 0"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (validity == "") {
+      error.innerText = "Expiry is required"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (new Date(validity) - new Date() < 0) {
+      error.innerText = "This date is already expired"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (description == "") {
+      error.innerText = "Description is required"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (discTypeValue == "Amount") {
+      if (discountAmount == "") {
+        error.innerText = "Discount Amount is required"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (discountAmount > parseInt(amountValue[0])) {
+        error.innerText = "Discount Amount should be less than selected amount"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      }
+    } else if (discTypeValue == "Percentage") {
+      if (discountPercentage == "") {
+        error.innerText = "Discount Percentage is required"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (discountPercentage > 70) {
+        error.innerText = "Discount Percentage should be less than 70"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (cap == "") {
+        error.innerText = "Capped Amount is required"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if (!cap.match(/^\d+$/)) {
+        error.innerText = "Capped Amount must be a number"
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else if ( cap >= (parseInt(amountValue[0])/100)*parseInt(discountPercentage)) {
+        error.innerText = `Capped Amount should be less than ${discountPercentage}% of minimum value`
+        error.style.background = "rgb(200,0,0,0.1)"
+        error.style.width = "100%"
+        flag = 2
+      } else {
+        error.innerText = "Coupon Success"
+        error.style.background = "rgb(53,200,0,0.1)"
+        error.style.width = "100%"
+      }
+    }
+
+    if (flag == 1) {
+      sumbitCoupon(couponName, amountValidityValue, discTypeValue, discountAmount, discountPercentage,cap,redeemTime, new Date(validity), description)
+      console.log(couponName, amountValidityValue, discTypeValue, discountAmount, discountPercentage,redeemTime, new Date(validity), description);
+    }
+  }
+    function sumbitCoupon(couponName, amountValidityValue, discountType, discountAmount, discountPercentage,cappedAmount, redeemTime, expiryDate, description){
+        $.ajax({
+            url:'/admin/couponMgt/addCoupon',
+            method:'post',
+            data:{
+                coupon:couponName,
+                amountValidity:amountValidityValue,
+                cappedAmount:cappedAmount,
+                discountType:discountType,
+                discountAmount:discountAmount,
+                redeemTime:redeemTime,
+                discountPercentage:discountPercentage,
+                validity:expiryDate,
+                description:description
+            },
+            success:(response)=>{
+                if(response.status==true){
+                    console.log("success");
+                    location.href = '/admin/couponMgt'
+                }
+            }
+        })
+    }
+    function generateCoupon(){
+        console.log('hey');
+        $.ajax({
+            url:'/admin/couponMgt/generateCoupon',
+            method:'get',
+            success:(response)=>{
+                console.log(response,"res");
+                console.log(response.couponCode[0]);
+                document.getElementById('couponName').value=response.couponCode[0]
+            }
+        }).then(()=>{
+
+        })
+    }
+  </script>

@@ -1,0 +1,136 @@
+<main class="main-wrap">
+    <header class="main-header navbar">
+        <div class="col-search">
+            <form class="searchform">
+                <div class="input-group">
+                    <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                    <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                </div>
+                <datalist id="search_terms">
+                    <option value="Products">
+                    <option value="New orders">
+                    <option value="Apple iphone">
+                    <option value="Ahmed Hassan">
+                </datalist>
+            </form>
+        </div>
+        <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link btn-icon" href="#">
+                        <i class="material-icons md-notifications animation-shake"></i>
+                        <span class="badge rounded-pill">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                        <a class="dropdown-item text-brand" href="#"><img src="/adminAssets/imgs/theme/flag-us.png" alt="English">English</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+                    </div>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/adminAssets/imgs/people/avatar2.jpg" alt="User"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="content-header mt-30 ml-20">
+        <div>
+            <h2 class="content-title card-title">Users List</h2>
+            <p></p>
+        </div>
+        <!-- <div>
+            <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded  font-md">Import</a>
+            <a href="#" class="btn btn-primary btn-sm rounded">Create new</a>
+        </div> -->
+    </div>
+    <div>
+    <table class="table ml-20">
+        <thead>
+          <tr>
+            <th scope="col">Index</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th scope="col">Registered</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% console.log(users,'test'); %>  
+             <% users.forEach((user,index)=> {%> 
+            
+          <tr>
+            <td><%= index+1 %> </td>
+            <td width="40%">
+                <span class="itemside">
+                    <div class="info pl-3">
+                        <h6 class="mb-0 title">
+                            <%= console.log(user.fName); %> 
+                            <%= user.fName %> 
+                        </h6>
+                    </div>
+                </span>
+            </td>
+            <td>
+                <small class="">
+                <%= user.email %> 
+                </small>
+            </td>
+            <td>
+                <% if (user.isBlocked) {%> 
+                    <span class="badge rounded-pill alert-danger">Blocked</span>
+                    <% }else{ %> 
+                    <span class="badge rounded-pill alert-success">Active</span>
+                    <% } %> 
+            </td>
+            <td>24.04.2021</td>
+            <td class="">
+                    <% if (user.isBlocked) { %> 
+                        <a href="/admin/userMgt/unblocked/<%= user.id %> "
+                            class="btn btn-sm btn-danger rounded font-sm mt-15">UnBlock</a>
+                    <% }else { %> 
+                        <a href="/admin/userMgt/blocked/<%= user.id %> "
+                            class="btn btn-sm btn-brand rounded font-sm mt-15">Block</a>
+                            <% } %> 
+            </td>
+          </tr>
+            <% }) %> 
+        </tbody>
+      </table>
+    </div>
+    <section class="content-main">
+        <div class="pagination-area mt-30 mb-50">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>

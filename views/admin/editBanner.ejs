@@ -1,0 +1,132 @@
+<main class="main-wrap">
+    <header class="main-header navbar">
+        <div class="col-search">
+          <form class="searchform">
+              <div class="input-group">
+                  <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                  <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+              </div>
+              <datalist id="search_terms">
+                  <option value="Products">
+                  <option value="New orders">
+                  <option value="Apple iphone">
+                  <option value="Ahmed Hassan">
+              </datalist>
+          </form>
+      </div>
+      <div class="col-nav">
+          <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+          <ul class="nav">
+              <li class="nav-item">
+                  <a class="nav-link btn-icon" href="#">
+                      <i class="material-icons md-notifications animation-shake"></i>
+                      <span class="badge rounded-pill">3</span>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+              </li>
+              <li class="nav-item">
+                  <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+              </li>
+              <li class="dropdown nav-item">
+                  <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                      <a class="dropdown-item text-brand" href="#"><img src="/adminAssets/imgs/theme/flag-us.png" alt="English">English</a>
+                      <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+                      <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                      <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+                  </div>
+              </li>
+              <li class="dropdown nav-item">
+                  <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/adminAssets/imgs/people/avatar2.jpg" alt="User"></a>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                      <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                      <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                  </div>
+              </li>
+          </ul>
+      </div>
+  </header>
+ <section class="content-main">
+     <div class="row">
+   
+              
+       
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Banner Management</h3>
+        <p></p>
+  
+        <br>
+        <% data.forEach((element,index)=>{  %>
+        <form class="forms-sample" method="post" action="/admin/editbanner/<%= element._id %> " >
+  
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group col-md-5">
+                <div class="d-flex">
+                  <label class="w-25">Title</label>
+                  <p id="err" class="text-danger d-flex justify-content-end w-75"></p>
+                </div>
+                <input type="text" class="form-control" id="name" placeholder="Title" name="title" value="<%= element.title %> " required>
+              </div>
+              <br>
+              <div class="form-group col-md-5">
+                <div class="d-flex">
+                  <label class="w-25">Description</label>
+                  <p id="err" class="text-danger d-flex justify-content-end w-75"></p>
+                </div>
+                <input type="text" class="form-control" id="name" placeholder="Description" name="description" value="<%= element.description %> " required>
+              </div>
+              <br>
+              <div class="form-group col-md-5">
+                <div class="card-body">
+                  <div class="input-upload" >
+                    <img src="/bannerImages/<%= element.Image[0] %> " alt="" class="img-fluid w-25 h-25" id="image0">
+                    <input class="form-control " name="Image"  type="file" onchange="document.getElementById('image0').src=window.URL.createObjectURL(this.files[0]),indexValue(0)">
+                  </div>
+              </div>
+              </div>
+            </div>
+            <br>
+            <div class="col-6">
+                <input type="text" name="IndexOfImage">
+                <br>
+              <button type="submit" class="btn btn-primary ">Submit</button>
+              <button class="btn btn-light" onclick="history.back()">Cancel</button>
+            </div>
+          </div>
+        </form>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+</section> 
+
+  
+  
+  <!-- <script>
+     const previewimage=(event)=>{
+        const  imageFiles=event.target.imageFiles
+        const imageSrc=URL.createObjectURL(imageFiles[0])
+        const imagePriviewElement=document.getElementById('viewImage')
+        imagePriviewElement.src=imageSrc
+    }
+  </script> -->
+  <script>
+    let index=[]
+    function indexValue(indexval){
+
+     index.push(indexval)
+     console.log(index,'index');
+     document.getElementById('IndexOfImage').value=""+index
+     }
+ </script>

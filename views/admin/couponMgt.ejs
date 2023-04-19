@@ -1,0 +1,162 @@
+<main class="main-wrap">
+    <header class="main-header navbar">
+        <div class="col-search">
+            <form class="searchform">
+                <div class="input-group">
+                    <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                    <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                </div>
+                <datalist id="search_terms">
+                    <option value="Products">
+                    <option value="New orders">
+                    <option value="Apple iphone">
+                    <option value="Ahmed Hassan">
+                </datalist>
+            </form>
+        </div>
+        <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link btn-icon" href="#">
+                        <i class="material-icons md-notifications animation-shake"></i>
+                        <span class="badge rounded-pill">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                        <a class="dropdown-item text-brand" href="#"><img src="/adminAssets/imgs/theme/flag-us.png" alt="English">English</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+                    </div>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/adminAssets/imgs/people/avatar2.jpg" alt="User"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="content-header mt-30 ml-20">
+        <div>
+            <h2 class="content-title card-title">
+                Coupons List</h2>
+            <p></p>
+        </div>
+        <div>
+            <a href="/admin/couponMgt/addCoupon"class="btn btn-primary btn-sm rounded mr-20">Add Coupon</a>
+        </div>
+        <!-- <div>
+            <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded  font-md">Import</a>
+            <a href="#" class="btn btn-primary btn-sm rounded">Create new</a>
+        </div> -->
+    </div>
+    <div>
+        <% const dateToreadable=(date)=>{
+            let dateMain = new Date(date)
+            let months = ['Jan','Feb','March','April','May','June','July','Aug','Sept','Oct','Nov','Dec']
+            let dd = dateMain.getDate()
+            let mm = dateMain.getMonth()
+            let month = months[mm]
+            let yyyy = dateMain.getFullYear()
+
+            return `${dd}-${month}-${yyyy}`
+        } %> 
+        <% console.log(couponData,"hello"); %> 
+    <table class="table ml-20">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Capped Amount</th>
+            <th scope="col">Amount Validity</th>
+            <th scope="col">Max Usage</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Validity Till</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+         <% couponData?.forEach((element)=> { %>  
+          <tr>
+            <td width="20%">
+                <span class="itemside">
+                        <h6 style="font: bolder">
+                            <%=element.coupon %> 
+                        </h6>
+                    </div>
+                </span>
+            </td>
+            <td>
+                <%=element.description %>
+            </td>
+            <td>
+                <% if(element.amount==0) {%> 
+                <small class="">
+                    <%= element.percentage %>% <br>
+                    percentage 
+                </small>
+                <% }else{ %> 
+                    <small class="">
+                        $<%= element.amount%> <br>
+                        amount
+                    </small>
+                <% } %> 
+            </td>
+          
+            <td>
+               <%= element.cappedAmount %> 
+            </td>
+           
+            <td>
+                <span class="badge rounded-pill alert-success"><%= element.amountValidity %> </span>
+            </td>
+            
+            <td>
+                <%=element.usageValidity %> 
+            </td>
+               
+            <td>
+                <%= dateToreadable(element.createdAt) %> 
+            </td>
+            <td>
+                <%= dateToreadable(element.validityTill) %> 
+            </td>
+          </tr>
+          <% }) %> 
+        </tbody>
+      </table>
+    </div>
+    <section class="content-main">
+        <div class="pagination-area mt-30 mb-50">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>

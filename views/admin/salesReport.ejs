@@ -1,0 +1,726 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<style>
+  button,
+  input {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  a {
+    color: #0e6b65;
+  }
+
+  a:hover,
+  a:focus {
+    color: #0e6b65;
+  }
+
+  p {
+    line-height: 1.61em;
+    font-weight: 300;
+    font-size: 1.2em;
+  }
+
+  .category {
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #9A9A9A;
+  }
+
+  body {
+    color: #2c2c2c;
+    font-size: 14px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .nav-item .nav-link,
+  .nav-tabs .nav-link {
+    -webkit-transition: all 300ms ease 0s;
+    -moz-transition: all 300ms ease 0s;
+    -o-transition: all 300ms ease 0s;
+    -ms-transition: all 300ms ease 0s;
+    transition: all 300ms ease 0s;
+  }
+
+  .card a {
+    -webkit-transition: all 150ms ease 0s;
+    -moz-transition: all 150ms ease 0s;
+    -o-transition: all 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s;
+  }
+
+  [data-toggle="collapse"][data-parent="#accordion"] i {
+    -webkit-transition: transform 150ms ease 0s;
+    -moz-transition: transform 150ms ease 0s;
+    -o-transition: transform 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: transform 150ms ease 0s;
+  }
+
+  [data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+
+  .now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Nucleo Outline';
+    font-size: inherit;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @-webkit-keyframes nc-icon-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @-moz-keyframes nc-icon-spin {
+    0% {
+      -moz-transform: rotate(0deg);
+    }
+
+    100% {
+      -moz-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes nc-icon-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  .now-ui-icons.objects_umbrella-13:before {
+    content: "\ea5f";
+  }
+
+  .now-ui-icons.shopping_cart-simple:before {
+    content: "\ea1d";
+  }
+
+  .now-ui-icons.shopping_shop:before {
+    content: "\ea50";
+  }
+
+  .now-ui-icons.ui-2_settings-90:before {
+    content: "\ea4b";
+  }
+
+  .nav-tabs {
+    border: 0;
+    padding: 15px 0.7rem;
+  }
+
+  .nav-tabs:not(.nav-tabs-neutral)>.nav-item>.nav-link.active {
+    box-shadow: 0px 5px 35px 0px rgba(0, 0, 0, 0.3);
+    border: 1px solid gray;
+  }
+
+  .card .nav-tabs {
+    border-top-right-radius: 0.1875rem;
+    border-top-left-radius: 0.1875rem;
+  }
+
+  .nav-tabs>.nav-item>.nav-link {
+    color: #888888;
+    margin: 0;
+    margin-right: 5px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    font-size: 14px;
+    padding: 11px 23px;
+    line-height: 1.5;
+  }
+
+  .nav-tabs>.nav-item>.nav-link:hover {
+    background-color: transparent;
+  }
+
+  .nav-tabs>.nav-item>.nav-link.active {
+    background-color: #444;
+    border-radius: 30px;
+    color: #FFFFFF;
+  }
+
+  .nav-tabs>.nav-item>.nav-link i.now-ui-icons {
+    font-size: 14px;
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+  }
+
+  .nav-tabs.nav-tabs-neutral>.nav-item>.nav-link {
+    color: #FFFFFF;
+  }
+
+  .nav-tabs.nav-tabs-neutral>.nav-item>.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+  }
+
+  .card {
+
+    border-radius: 0.1875rem;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    /* box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2); */
+  }
+
+  .card .card-header {
+    background-color: transparent;
+    border-bottom: 0;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .card[data-background-color="orange"] {
+    background-color: #0e6b65;
+  }
+
+  .card[data-background-color="red"] {
+    background-color: #0e6b65;
+  }
+
+  .card[data-background-color="yellow"] {
+    background-color: #FFB236;
+  }
+
+  .card[data-background-color="blue"] {
+    background-color: #2CA8FF;
+  }
+
+  .card[data-background-color="green"] {
+    background-color: #15b60d;
+  }
+
+  [data-background-color="orange"] {
+    background-color: #0e6b65;
+  }
+
+  [data-background-color="black"] {
+    background-color: #2c2c2c;
+  }
+
+  [data-background-color]:not([data-background-color="gray"]) {
+    color: #FFFFFF;
+  }
+
+  [data-background-color]:not([data-background-color="gray"]) p {
+    color: #FFFFFF;
+  }
+
+  [data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
+    color: #FFFFFF;
+  }
+
+  [data-background-color]:not([data-background-color="gray"]) .nav-tabs>.nav-item>.nav-link i.now-ui-icons {
+    color: #FFFFFF;
+  }
+
+
+  @font-face {
+    font-family: 'Nucleo Outline';
+    src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+    src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
+    src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+    font-weight: normal;
+    font-style: normal;
+
+  }
+
+  .now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Nucleo Outline';
+    font-size: inherit;
+    text-transform: none;
+    /* Better Font Rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+
+  footer {
+    margin-top: 50px;
+    color: #555;
+    background: #fff;
+    padding: 25px;
+    font-weight: 300;
+    background: #f7f7f7;
+
+  }
+
+  .footer p {
+    margin-bottom: 0;
+  }
+
+  footer p a {
+    color: #555;
+    font-weight: 400;
+  }
+
+  footer p a:hover {
+    color: #0e6b65;
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .nav-tabs {
+      display: inline-block;
+      width: 100%;
+      padding-left: 100px;
+      padding-right: 100px;
+      text-align: center;
+    }
+
+    .nav-tabs .nav-item>.nav-link {
+      margin-bottom: 5px;
+    }
+  }
+</style>
+<main class="main-wrap">
+    <header class="main-header navbar">
+        <div class="col-search">
+            <form class="searchform">
+                <div class="input-group">
+                    <input list="search_terms" type="text" class="form-control" placeholder="Search term">
+                    <button class="btn btn-light bg" type="button"> <i class="material-icons md-search"></i></button>
+                </div>
+                <datalist id="search_terms">
+                    <option value="Products">
+                    <option value="New orders">
+                    <option value="Apple iphone">
+                    <option value="Ahmed Hassan">
+                </datalist>
+            </form>
+        </div>
+        <div class="col-nav">
+            <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i class="material-icons md-apps"></i> </button>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link btn-icon" href="#">
+                        <i class="material-icons md-notifications animation-shake"></i>
+                        <span class="badge rounded-pill">3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                        <a class="dropdown-item text-brand" href="#"><img src="/adminAssets/imgs/theme/flag-us.png" alt="English">English</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                        <a class="dropdown-item" href="#"><img src="/adminAssets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+                    </div>
+                </li>
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount" aria-expanded="false"> <img class="img-xs rounded-circle" src="/adminAssets/imgs/people/avatar2.jpg" alt="User"></a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                        <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit Profile</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account Settings</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                        <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item text-danger" href="/admin/adminLogout"><i class="material-icons md-exit_to_app"></i>Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="content-header mt-30 ml-20">
+        <div>
+            <h2 class="content-title card-title">Sales Report</h2>
+            <p></p>
+            <!-- <div>
+                <a href="#" class="btn btn-light rounded font-md">Export</a>
+            <a href="#" class="btn btn-light rounded  font-md">Import</a>
+            <a href="#" class="btn btn-primary btn-sm rounded">Create new</a>
+        </div> -->
+        
+        <div class="container mt-5">
+            <div class="row">
+              <div class="col-md-12 ml-auto col-xl-12 mr-auto">
+                <!-- Tabs with Background on Card -->
+                <div class="card">
+                  <div class="card-header">
+                    <ul class="nav nav-tabs nav-tabs-neutral justify-content-center" role="tablist" data-background-color="orange">
+                      <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home1" aria-controls="home1" role="tab" aria-selected="fa">Daily</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile1" aria-controls="profile1" role="tab" aria-selected="true">Monthly</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#messages1" aria-controls="messages1" role="tab" aria-selected="true">Yearly</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#settings1" aria-controls="settings1" role="tab" aria-selected="true">Every Month</a>
+                      </li>
+          
+                    </ul>
+                  </div>
+                  <div class="card-body" style="   border: 1px solid gray;">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div class="tab-pane active mt-2 mx-auto" id="home1" role="tabpanel">
+          
+          
+          
+                        <div class="col-lg-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+                                <% console.log(daily,"hi dailydata"); %> 
+                                <h4 class="card-title">Daily Sales</h4>
+                                <button onclick="generateDailyReport('<%= daily?.data[0]?.total %>','<%= daily?.data[0]?.orders %>','<%= daily?.data[0]?.count %> ')" class="btn btn-outline-primary btn-round btn-sm float-right">
+                                  Download PDF
+                                </button>
+          
+                              <div class="table-responsive pt-3">
+                                <table class="table table-bordered">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Total Revenue</th>
+                                      <th>No of Product Sold</th>
+                                      <th>No of orders</th>
+          
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    
+                                    <% daily.data.forEach((element,index)=> { %>
+                                    <tr>
+                                      <td><%- index+1 %> </td>
+                                      <td>$<%-element.total %>.00 </td>
+                                      <td><%- element.orders %> </td>
+                                      <td><%-element.count %> </td>
+                                    </tr>
+                                    <% })%>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+          
+          
+                      </div>
+                      <div class="tab-content dashboard-content ">
+                        <div class="tab-pane fade active show" id="profile1" role="tabpanel" aria-labelledby="dashboard-tab">
+                           
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Monthly Sales</h4>
+                                            <button onclick="generateMontlyReport()" class="btn btn-outline-primary btn-round btn-sm float-right">
+                                              Download PDF
+                                            </button>
+                                            
+                                            <div class="table-responsive pt-3">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Total Revenue</th>
+                                                            <th>No of Product Sold</th>
+                                                            <th>No of orders</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                    <% monthly.data.forEach((element,index)=> { %>
+                                    <tr>
+                                      <td><%- index+1 %> </td>
+                                      <td>$<%-element.total %>.00</td>
+                                      <td><%- element.orders %> </td>
+                                      <td><%-element.count %> </td>
+                                    </tr>
+                                    <% })%>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+          
+          
+                      </div>
+                      <div class="tab-content dashboard-content ">
+                        <div class="tab-pane fade active show" id="messages1" role="tabpanel" aria-labelledby="dashboard-tab">
+                            
+                          <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Yearly Sales</h4>
+                                <button onclick="generateYearlyReport('<%= yearly.data[0].total %>','<%= yearly.data[0].orders %>','<%= yearly.data[0].count %>')" class="btn btn-outline-primary btn-round btn-sm float-right">
+                                  Download PDF
+                                </button>
+                                
+                                <div class="table-responsive pt-3">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                      <th>#</th>
+                                      <th>Total Revenue</th>
+                                      <th>No of Product Sold</th>
+                                      <th>No of orders</th>
+          
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+          
+                                    <% yearly.data.forEach((element,index)=> { %>
+                                    <tr>
+                                      <td><%- index+1 %> </td>
+                                      <td>$<%-element.total %> .00</td>
+                                      <td><%- element.orders %> </td>
+                                      <td><%-element.count %> </td>
+                                    </tr>
+                                    <% })%>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+          
+                      </div>
+                      <div class="tab-content dashboard-content ">
+                        <div class="tab-pane fade active show" id="settings1" role="tabpanel" aria-labelledby="dashboard-tab">
+                            
+                          <div class="card">
+                            <div class="card-body">
+                      
+                     
+                                <div class="col-lg-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+          
+                                <h4 class="card-title">Every Month Sales</h4>
+                                <button onclick="everyMonth('<%-monthWise?.data%>')" class="btn btn-outline-primary btn-round btn-sm float-right">
+                                  Download PDF
+                                </button>
+          
+                              <div class="table-responsive pt-3">
+                                <table class="table table-bordered" id="my-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Month</th>
+                                      <th>Total Revenue</th>
+                                      <th>No of Product Sold</th>
+                                      <th>No of orders</th>
+          
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+          
+                                    <% monthWise?.data?.forEach((element,index)=> { %>
+                                    <tr>
+                                      <td><%=index %> </td>
+                                      <td>$<%-element?.total %>.00</td>
+                                      <td><%- element?.orders %> </td>
+                                      <td><%-element?.count %> </td>
+                                    </tr>
+                                    <% })%>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+          
+                      </div>
+                      <!-- <div class="tab-pane" id="Daily" role="tabpanel">
+           -->
+          
+                        <!-- <div class="col-lg-12 grid-margin stretch-card">
+                          <div class="card">
+                            <div class="card-body">
+                              <button onclick="everyDay()" class="btn btn-outline-primary btn-round btn-sm float-right">
+                                Download PDF
+                              </button>
+                              <h4 class="card-title">Day wise </h4>
+          
+                              <div class="table-responsive pt-3">
+                                <table class="table table-bordered" id="everyDay-table">
+                                  <thead>
+                                    <tr>
+                                      <th>Day</th>
+                                      <th>Total Revenue</th>
+                                      <th>No of Product Sold</th>
+                                      <th>No of orders</th>
+          
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+          
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+          
+          
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Tabs on plain Card -->
+              </div>
+            </div>
+          </div>
+          
+    <section class="content-main">
+        <div class="pagination-area mt-30 mb-50">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</main>
+<script>
+    $(document).ready(function () {
+        $('#userData').DataTable({
+            dom: 'Bfrtip',
+        buttons: [
+          'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+});
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.6/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+  function generateDailyReport(total, orders, count) {
+    var doc = new jsPDF()
+
+    doc.autoTable({
+      head: [
+        ['#', 'Total Revenue', 'No of products sold', 'Orders Count']
+      ],
+      body: [
+        ['1', total, orders, count]
+      ]
+    })
+    doc.save('Daily Sales Report.pdf')
+
+  }
+
+
+
+  function generateYearlyReport(total, orders, count) {
+    var doc = new jsPDF()
+
+    doc.autoTable({
+      head: [
+        ['#', 'Total Revenue', 'No of products sold', 'Orders Count']
+      ],
+      body: [
+        ['1', total, orders, count]
+      ]
+
+    })
+    doc.save('Yearly Sales Report.pdf')
+
+  }
+
+  function generateMontlyReport(total, orders, count) {
+    var doc = new jsPDF()
+
+
+    $.ajax({
+      url: 'generate-PDF-monthly',
+      method: 'get',
+      success: (response) => {
+        if (response.status) {
+          monthlyReport(response.data[0])
+        }
+      }
+    })
+
+
+
+    function monthlyReport(data) {
+
+      doc.autoTable({
+        head: [
+          ['#', 'Total Revenue', 'No of products sold', 'Orders Count']
+        ],
+        body: [
+          ['1', data.total, data.orders, data.count]
+        ]
+
+      })
+      doc.save('Monthly Report.pdf')
+    }
+
+  }
+
+  function everyMonth(data) {
+    var doc = new jsPDF()
+
+    doc.autoTable({
+      html: '#my-table'
+    })
+
+    doc.save('Monthly Report.pdf')
+  }
+
+  function everyDay(data) {
+    var doc = new jsPDF()
+
+    doc.autoTable({
+      html: '#everyDay-table'
+    })
+
+    doc.save('Every Day Report.pdf')
+  }
+</script>

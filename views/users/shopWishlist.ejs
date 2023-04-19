@@ -1,0 +1,102 @@
+<% if(locals.wishlist) { %> 
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">Home</a>
+                <span></span> Shop
+                <span></span> Wishlist
+            </div>
+        </div>
+    </div>
+    <section class="mt-50 mb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table shopping-summery text-center">
+                            <thead>
+                                <tr class="main-heading">
+                                    <th scope="col" colspan="2">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Stock Status</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% products.forEach(elements=>{ %> 
+                                    <% if(elements.products) { %> 
+                                <tr>
+                                    <td class="image product-thumbnail"><img src="/productImages/<%= elements.products.Image[1] %> " alt="#"></td>
+                                    <td class="product-des product-name">
+                                        <h5 class="product-name"><a href="#"><%= elements.products.name %> </a></h5>
+                                        <p class="font-xs"><%= elements.products.description %> 
+                                        </p>
+                                    </td>
+                                    <td class="price" data-title="Price"><span>$<%= elements.products.price %> </span></td>
+                                    <td class="text-center" data-title="Stock">
+                                        <span class="color3 font-weight-bold"><%= elements.products.stock %> </span>
+                                    </td>
+                                    <td class="text-right" data-title="Cart">
+                                        <button class="btn btn-sm"><i class="fi-rs-shopping-bag mr-5" onclick="addToCart ('<%= elements.products._id%>') "></i>Add to cart</button>
+                                    </td>
+                                    <td class="action" data-title="Remove"><a href="" onclick="removeProductFromCart('<%= elements._id %>','<%= elements.products._id %>')"><i class="fi-rs-trash"></i></a></td>
+                                </tr>
+                                
+                             <% } %> 
+                             <% }) %> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+  function addToCart(proid) {
+    console.log(proid);
+    $.ajax({
+      url: '/addToCart/' + proid,
+      method: 'post',
+      success: (response) => {
+
+        if (response.status) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Item has been added to cart',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please login and try again!',
+            footer: '<a href="/login">Why do I have this issue?</a>'
+          })
+        }
+      }
+    })
+  }
+  function removeProductFromCart(wishlistId, proId) {
+     
+      $.ajax({
+        url: '/deleteProductFromWishlist/' + proId,
+        method: 'POST',
+        data: {
+          wishlistId:wishlistId,
+          products: proId,
+        },
+        success: (response) => {
+          window.location.reload();
+        }
+      })
+    }
+
+
+</script>
+<% } %> 
