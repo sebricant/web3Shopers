@@ -50,7 +50,7 @@ const paypalClient = new paypal.core.PayPalHttpClient(
 module.exports = {
   
   landingPage: async(req, res) => {
-    let userId = req.session.user._id;
+    let userId = req.session?.user?._id;
     let category = await categoryHelpers.allCategory();
     let cartCount = await userHelpers.getCartCount(userId);
     let cartProduct = await cartHelpers.getCartProducts(userId);
