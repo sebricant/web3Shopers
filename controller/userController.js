@@ -149,6 +149,7 @@ module.exports = {
         })
         .then((data) => {
           console.log(data);
+          req.session.user = existingData;
           res.send({ status: true });
           // res.status(200).send(data)
         });
@@ -173,7 +174,6 @@ module.exports = {
       .then(async (data) => {
         console.log(data);
         if (data.valid) {
-          // req.session.user = ;
           req.session.loggedIn = true;
           res.send({ value: "success" });
         } else {
