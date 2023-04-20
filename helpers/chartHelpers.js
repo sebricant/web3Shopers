@@ -1,7 +1,6 @@
-const { order } = require("../model/connection");
 const db = require("../model/connection");
 
-let arr = [];
+// let arr = [];/
 module.exports = {
   revenueGraphMonthnew: () => {
     return new Promise(async (resolve, reject) => {

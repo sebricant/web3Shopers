@@ -1,6 +1,3 @@
-const fs =require('fs')
-const { resolve } = require('path')
-const { response } = require('../app')
 const db = require('../model/connection')
 
 module.exports = {

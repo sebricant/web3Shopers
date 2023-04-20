@@ -1,6 +1,4 @@
-const db = require('../model/connection');
-const {response} = require("../app");
-const { isObjectIdOrHexString } = require('mongoose');
+const db = require('../model/connection'); 
 
 module.exports={
     addcategory: async(category)=>{

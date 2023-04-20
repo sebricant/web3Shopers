@@ -1,7 +1,4 @@
 let db = require("../model/connection");
-const { response } = require("../app");
-const { ObjectId } = require("mongodb");
-var objectId = require("mongodb").ObjectId;
 
 module.exports = {
   addProducts: async (product) => {

@@ -1,11 +1,8 @@
 const db = require("../model/connection");
 let bcrypt = require("bcrypt");
-const { Promise } = require("mongoose");
-const { product, orders } = require("../model/connection");
+const { Promise } = require("mongoose"); 
 const ObjectId = require("mongodb").ObjectId;
-const Razorpay = require("razorpay");
-const { options } = require("../app");
-const { resolve } = require("path");
+const Razorpay = require("razorpay"); 
 
 var instance = new Razorpay({
   key_id: "rzp_test_WHk8zzOMe9J9Pz",

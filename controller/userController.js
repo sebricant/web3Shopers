@@ -1,6 +1,5 @@
 const e = require("express");
-require("dotenv").config();
-const { response } = require("../app");
+require("dotenv").config(); 
 const userHelpers = require("../helpers/userHelpers");
 const cartHelpers = require("../helpers/cartHelpers");
 const categoryHelpers = require("../helpers/categoryHelpers");

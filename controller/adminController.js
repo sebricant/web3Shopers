@@ -1,18 +1,12 @@
 // const db =require('../model/connection')
 const userHelpers = require("../helpers/userHelpers");
 const sales = require('../helpers/salesHelpers')
-const pdf = require('pdf-creator-node')
-const fs = require('fs');
-
 var adminEmail = "admin@gmail.com";
 var adminPassword = "123";
 const chartHelpers=require("../helpers/chartHelpers");
 const productHelpers = require("../helpers/productHelpers");
 const db = require("../model/connection");
-const { render, response } = require("../app");
-const { category } = require("../model/connection");
-const categoryHelpers = require("../helpers/categoryHelpers");
-const cartHelpers = require("../helpers/cartHelpers");
+const categoryHelpers = require("../helpers/categoryHelpers"); 
 const couponHelpers = require('../helpers/couponHelpers');
 const bannerHelpers = require("../helpers/bannerHelpers");
 const orderHelpers = require("../helpers/orderHelpers");

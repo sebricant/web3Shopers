@@ -1,4 +1,3 @@
-const { response } = require("../app");
 const db = require("../model/connection");
 var objectId = require("mongodb").ObjectId;
 
