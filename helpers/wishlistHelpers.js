@@ -31,7 +31,7 @@ module.exports = {
           user: userId,
           wishListProducts: [prodobj],
         };
-        console.log(wishobj);
+        // console.log(wishobj);
         let data = await db.wishList(wishobj);
         data.save((err, data) => {
           if (err) {
@@ -61,7 +61,7 @@ module.exports = {
   },
   doDeleteproductFromWishlist: async (data, proId, userId) => {
     return new Promise(async (resolve, reject) => {
-      console.log(data, "dodeleteproductwishlist in wishlistHelpers");
+      // console.log(data, "dodeleteproductwishlist in wishlistHelpers");
       db.wishList
         .updateOne(
           { _id: data.wishlistId },
@@ -72,7 +72,7 @@ module.exports = {
           }
         )
         .then((result) => {
-          console.log(result, "wish");
+          // console.log(result, "wish");
           resolve(result);
         });
     });

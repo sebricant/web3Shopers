@@ -16,7 +16,7 @@ module.exports={
     addCoupon:(data)=>{
         return new Promise(async(resolve,reject)=>{
             try{
-                console.log(data.percentage);
+                // console.log(data.percentage);
                 discountAmount = data.amount =="" ? 0 : parseInt(data.amount)
                 discountPercentage = data.percentage==''?0: parseInt(data.percentage)
                 cappedAmount = data.cappedAmount == ""? 0: parseInt(data?.cappedAmount)
@@ -40,11 +40,11 @@ module.exports={
         })
     },
         verifyCoupon:(data,user)=>{
-            console.log(data);
+            // console.log(data);
             return new Promise((resolve,reject)=>{
                 try{
                     db.coupon.findOne({coupon:data}).then(async(response)=>{
-                        console.log("res",response);
+                        // console.log("res",response);
                         if(response){
                             let couponExit = await db.users.findOne({_id:user,"coupon.name":data})
                             if(!couponExit){
@@ -73,8 +73,8 @@ module.exports={
             })
         },
     checkCoupon:(data,user)=>{
-        console.log("ddddddddddddddddddddddddddddd");
-        console.log(data);
+        
+        // console.log(data);
         return new Promise(async(resolve,reject)=>{
             try{
                 let purchased= await db.users.aggregate([
@@ -93,7 +93,7 @@ module.exports={
                 }
             }
         ])
-        console.log('checkcoupon',purchased);
+        // console.log('checkcoupon',purchased);
         if(!purchased.length){
             resolve({purchased:true})
         }else{
@@ -108,7 +108,7 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             try {
                 let couponData = await db.coupon.findOne({ coupon: data })
-                console.log("couponData",data);
+                // console.log("couponData",data);
                 if (couponData) {
 
                     if ((new Date(couponData.validityTill) - new Date()) > 0 && couponData.usageValidity > 0) {

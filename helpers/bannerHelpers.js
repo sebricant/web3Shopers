@@ -15,7 +15,7 @@ module.exports = {
     },
   
     addBanner:(data)=>{
-        console.log(data,'daata of main banners');
+        // console.log(data,'daata of main banners');
         return new Promise(async(resolve,reject)=>{
           let baner=await db.banner(data)
           baner.save()
@@ -37,7 +37,7 @@ module.exports = {
         try{
             return new Promise((resolve, reject) => {
                 db.banner.deleteOne({_id:bannerId}).then((response)=>{
-                    console.log(response,'response deleteBanner')
+                    // console.log(response,'response deleteBanner')
                     resolve()
                 })
             })

@@ -47,7 +47,7 @@ module.exports = {
                         }
                     }
                 ]).then((data) => {
-                    console.log(data,"data101");
+                    // console.log(data,"data101");
                     resolve({ status: true, data: data })
                 })
             } catch (err) {
@@ -61,7 +61,7 @@ module.exports = {
     dailySales: () => {
         let date = new Date()
         let thisDay = date.getDate()
-console.log(thisDay,"hh");
+// console.log(thisDay,"hh");
         return new Promise((resolve, reject) => {
             try {
                 db.orders.aggregate([

@@ -14,7 +14,7 @@ module.exports = {
         let proExist = userCart.cartproducts.findIndex(
           (cartproducts) => cartproducts.item == proid
         );
-        console.log(proExist);
+        // console.log(proExist);
         if (proExist != -1) {
           db.cart
             .updateOne(
@@ -38,7 +38,7 @@ module.exports = {
           user: userId,
           cartproducts: [prodobj],
         };
-        console.log(cartObj);
+        // console.log(cartObj);
         let data = await db.cart(cartObj);
         data.save((err, data) => {
           if (err) {
@@ -47,12 +47,12 @@ module.exports = {
             resolve(data);
           }
         });
-        console.log(data);
+        // console.log(data);
       }
     });
   },
   doChangeProductQuantity: async (details) => {
-    console.log(details,'dataa');
+    // console.log(details,'dataa');
     details.count = parseInt(details.count);
     return new Promise((resolve, reject) => {
         try {
@@ -77,7 +77,7 @@ module.exports = {
                 }
               )
               .then((response) => {
-                console.log(response,"art respose");
+                // console.log(response,"art respose");
   
                 resolve({ status: true });
               });
@@ -141,7 +141,7 @@ module.exports = {
   },
   autofill:(userId,addressId)=>{
     return new Promise((resolve, reject) => {
-      console.log("userId",userId,"addressId",addressId);
+      // console.log("userId",userId,"addressId",addressId);
       db.address.aggregate([
         {
           $match:{userId:objectId(userId)},
@@ -153,7 +153,7 @@ module.exports = {
         $match:{"address._id":objectId(addressId)},
       }
       ]).then((data)=>{
-        console.log(data,"final data");
+        // console.log(data,"final data");
         resolve(data)
       });
     });

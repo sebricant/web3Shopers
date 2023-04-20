@@ -23,14 +23,14 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         if (!page?.page) {
-          console.log(page, "newpage");
+          // console.log(page, "newpage");
           let newproduct = await db.product.find(page);
-          console.log("page if condition", newproduct);
+          // console.log("page if condition", newproduct);
           resolve(newproduct);
         } else {
           let newproduct = await db.product.paginate({}, options);
           resolve(newproduct);
-          console.log("else condition");
+          // console.log("else condition");
         }
       } catch (error) {
         console.log(error);
@@ -47,7 +47,7 @@ module.exports = {
   adminEditProducts: (proid, product) => {
     return new Promise(async (resolve, reject) => {
       let dbproData = await db.product.findOne({ _id: proid });
-      console.log(product);
+      // console.log(product);
       if (product?.Image?.length == 0) {
         product.Image = dbproData?.Image;
       } else {
@@ -81,7 +81,7 @@ module.exports = {
   },
   productview: (proid) => {
     return new Promise((resolve, reject) => {
-      console.log(proid, "fvg");
+      // console.log(proid, "fvg");
       db.product.findOne({ _id: proid }).then((product) => {
         resolve(product);
       });
@@ -106,7 +106,7 @@ module.exports = {
   },
   deleteCategoryBanner: (catBanId) => {
     return new Promise((resolve, reject) => {
-      console.log(catBanId,'lllllllllllll');
+      // console.log(catBanId,'lllllllllllll');
       try {
         db.categoryBanner.deleteOne({ _id: catBanId }).then((response) => {
           resolve({ status: true});

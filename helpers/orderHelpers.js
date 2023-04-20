@@ -78,7 +78,7 @@ module.exports = {
           },
         ]);
         resolve(total[0]);
-        console.log(res,"ress");
+        // console.log(res,"ress");
       } catch (error) {}
     });
   },
@@ -125,7 +125,7 @@ module.exports = {
             },
           },
         ]);
-        console.log(total[0]?.total, "hello testing");
+        // console.log(total[0]?.total, "hello testing");
         resolve(total[0]?.total);
       } catch (error) {
         console.log(error);
@@ -146,7 +146,7 @@ module.exports = {
             $match: { "orders._id": ObjectId(orderId) },
           },
         ])
-        console.log(data,"dataaaa");
+        // console.log(data,"dataaaa");
             resolve(data)
      
     }catch(error){
@@ -168,7 +168,7 @@ module.exports = {
             $match: { "orders._id": ObjectId(orderId) },
           },
         ])
-        console.log(data,"dataaaa");
+        // console.log(data,"dataaaa");
             resolve(data)
      
     }catch(error){

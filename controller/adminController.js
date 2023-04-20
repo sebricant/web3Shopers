@@ -107,7 +107,7 @@ module.exports = {
   },
   adminDeleteCategory: (req, res) => {
     let catId = req.params.id;
-    console.log(catId);
+    // console.log(catId);
     categoryHelpers.DeleteCategory(catId).then((response) => {
       if (response) {
         res.send({ value: "success" });
@@ -117,18 +117,18 @@ module.exports = {
     });
   },
   PostadminAddProduct: async (req, res) => {
-    console.log(req);
+    // console.log(req);
     // let data=await db.product(req.body)
     // data.save()
     res.send({ staus: true });
   },
   adminDoLogout: (req, res) => {
-    console.log("lkjfklasdjfklasdjfalksj");
+    // console.log("lkjfklasdjfklasdjfalksj");
     req.session.adminLogin = false;
     res.redirect("/admin/login");
   },
   addProducts: (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const files = req.files;
     const fileName = files.map((file) => {
       return file.filename;
@@ -162,7 +162,7 @@ module.exports = {
     });
   },
   adminEditProducts: async (req, res) => {
-    console.log(req.body, "edit product");
+    // console.log(req.body, "edit product");
     try {
       //converts string to array
       let index = req.body.IndexOfImage.srsit(",").map(function (item) {
@@ -175,8 +175,8 @@ module.exports = {
       const fileName = files?.map((file) => {
         return file.filename
       });
-      console.log(index, "this is my index array");
-      console.log(fileName, "this is my new files name");
+      // console.log(index, "this is my index array");
+      // console.log(fileName, "this is my new files name");
 
       let prodata = await productHelpers.getProduct(req.params.id);
       var Image = prodata.Image
@@ -187,7 +187,7 @@ module.exports = {
       console.log(Image, "this is my image data of array");
       const product = req.body
       product.Image = Image
-      console.log(product, prodata, "product before and agter");
+      // console.log(product, prodata, "product before and agter");
 
       productHelpers
         .adminEditProducts(req.params.id, product)
@@ -216,7 +216,7 @@ module.exports = {
   },
   adminDeleteProduct: (req, res) => {
     let proId = req.params.id;
-    console.log(proId);
+    // console.log(proId);
     productHelpers.DeleteProduct(proId).then((response) => {
       if (response) {
         res.send({ value: "success" });
@@ -282,7 +282,7 @@ module.exports = {
     }
   },
   postaddCoupon:(req,res)=>{
-    console.log("khgfghj");
+    // console.log("khgfghj");
     try{
       let obj={
         coupon:req.body.coupon,
@@ -295,7 +295,7 @@ module.exports = {
         description:req.body.description,
         redeemTime:req.body.redeemTime
       }
-      console.log("obj",obj);
+      // console.log("obj",obj);
       couponHelpers.addCoupon(obj).then((response)=>{
         res.json(response)
       }).catch(error=>console.log(error))
@@ -365,7 +365,7 @@ module.exports = {
     },
     getCatagoryBanner:async(req,res)=>{
       let catagoryBanner = await productHelpers.getCatagoryBanner()
-      console.log(catagoryBanner,'categoryBanner');
+      // console.log(catagoryBanner,'categoryBanner');
       res.render('admin/categoryBanner',{
         layout:'adminLayout',
         sidebar:true,
@@ -386,14 +386,14 @@ module.exports = {
         return file.filename;
       })
       const Catbanner = req.body
-      console.log(Catbanner,"data")
+      // console.log(Catbanner,"data")
       Catbanner.Image = fileName
       productHelpers.addCategoryBanner(Catbanner).then((category)=>{
         res.redirect('/admin/categoryBanner')
       })
     },
     deleteCategoryBanner:(req,res)=>{
-      console.log("idhihi",req.params.id);
+      // console.log("idhihi",req.params.id);
       try {
         productHelpers.deleteCategoryBanner(req.params.id).then((response)=>{
           res.redirect('/admin/categoryBanner')

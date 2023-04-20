@@ -18,7 +18,7 @@ module.exports = {
           resolve({ status: false });
         } else {
           userData.password = await bcrypt.hash(userData.password, 10);
-          console.log(userData.password);
+          // console.log(userData.password);
           let data = db.users(userData);
           console.log(data);
           data.save();
@@ -32,7 +32,7 @@ module.exports = {
   },
   loginPost: (userData) => {
     return new Promise(async (resolve, reject) => {
-      console.log(userData);
+      // console.log(userData);
       let user = await db.users.findOne({ email: userData.email });
       let response = {};
 
@@ -181,14 +181,14 @@ module.exports = {
             },
           },
         ]);
-        console.log(products, "test1");
+        // console.log(products, "test1");
         //TOTAL QUANTITY
         let totalQuantity = 0;
         for (let i = 0; i < products.length; i++) {
           totalQuantity += products[i].quantity;
         }
-        console.log(totalQuantity, "jjjjjjjjjjjjjjjjj");
-        console.log(order.number, "nunmbers");
+        // console.log(totalQuantity, "jjjjjjjjjjjjjjjjj");
+        // console.log(order.number, "nunmbers");
         let Address = {
           fname: order.fname,
           lname: order.lname,
@@ -295,7 +295,7 @@ module.exports = {
               }
             )
             .then((order) => {
-              console.log(order);
+              // console.log(order);
               resolve({ order: "success" });
             });
         } else {
@@ -406,7 +406,7 @@ module.exports = {
               }
             )
             .then((data) => {
-              console.log(data, "my update status");
+              // console.log(data, "my update status");
               let quantity =
                 order[0].orders[orderIndex].productDetails[productIndex]
                   .quantity;
@@ -433,7 +433,7 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         let order = await db.orders.find({ userId: userId });
-        console.log(order, "orderss");
+        // console.log(order, "orderss");
         if (order) {
           let orderIndex = order[0].orders.findIndex(
             (order) => order._id == data.orderId
@@ -452,7 +452,7 @@ module.exports = {
               },
             }
           );
-          console.log(order, "orderss");
+          // console.log(order, "orderss");
           db.orders
             .aggregate([
               {
@@ -476,8 +476,8 @@ module.exports = {
               },
             ])
             .then((aggrData) => {
-              console.log(data, "dataaaa");
-              console.log(aggrData, "agrdta");
+              // console.log(data, "dataaaa");
+              // console.log(aggrData, "agrdta");
               let priceToWallet = {
                 price: 0,
               };
@@ -526,7 +526,7 @@ module.exports = {
     });
   },
   updateOrderStatus: (data, userId) => {
-    console.log(data, "test202");
+    // console.log(data, "test202");
     return new Promise(async (resolve, reject) => {
       try {
         let status = data.value;
@@ -538,7 +538,7 @@ module.exports = {
           let productIndex = order[0].orders[
             orderIndex
           ].productDetails.findIndex((product) => product._id == data.proId);
-          console.log(orderIndex, productIndex, "my index");
+          // console.log(orderIndex, productIndex, "my index");
           db.orders
             .updateOne(
               { "orders._id": data.orderId },
@@ -553,7 +553,7 @@ module.exports = {
               }
             )
             .then((data) => {
-              console.log(data, "my update status");
+              // console.log(data, "my update status");
               let quantity =
                 order[0].orders[orderIndex].productDetails[productIndex]
                   .quantity;
@@ -581,11 +581,11 @@ module.exports = {
       try {
         let cartCount = 0;
         db.cart.find({ user: userId }).then((cart) => {
-          console.log(cart, "cart=>");
+          // console.log(cart, "cart=>");
           for (i = 0; i < cart[0]?.cartproducts?.length; i++) {
             cartCount += cart[0]?.cartproducts[i]?.quantity;
           }
-          console.log(cartCount, "count=>");
+          // console.log(cartCount, "count=>");
           resolve(cartCount);
         });
       } catch (err) {
@@ -663,7 +663,7 @@ module.exports = {
           receipt: "" + orderId,
         };
         instance.orders.create(options, function (err, order) {
-          console.log(order);
+          // console.log(order);
           resolve(order);
         });
       } catch (err) {
@@ -693,7 +693,7 @@ module.exports = {
     });
   },
   changePaymentStatus: (userId, orderId) => {
-    console.log("orderId in userhelpers", orderId);
+    // console.log("orderId in userhelpers", orderId);
     return new Promise(async (resolve, reject) => {
       try {
         let order = await db.orders.find({ userId: userId });

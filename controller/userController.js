@@ -134,7 +134,7 @@ module.exports = {
       const mobileNumber = req.query.phoneNumber.slice(2);
       const existingData = await db.users.findOne({ mobile: mobileNumber });
 
-      console.log("data phone => ", existingData, "req.query.phoneNumber");
+      // console.log("data phone => ", existingData, "req.query.phoneNumber");
 
       if (!existingData) throw "User not exist";
 
@@ -148,7 +148,7 @@ module.exports = {
           channel: `${req.query.channel}`,
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           req.session.user = existingData;
           res.send({ status: true });
           // res.status(200).send(data)
@@ -172,7 +172,7 @@ module.exports = {
         code: req.query.code,
       })
       .then(async (data) => {
-        console.log(data);
+        // console.log(data);
         if (data.valid) {
           req.session.loggedIn = true;
           res.send({ value: "success" });
@@ -182,7 +182,7 @@ module.exports = {
       });
   },
   productPage: async (req, res) => {
-    console.log(req.params.id, "jhg");
+    // console.log(req.params.id, "jhg");
     let user = req.session.user;
     let userId = req.session.user._id;
     let cartCount = await userHelpers.getCartCount(req.session.user);
@@ -231,7 +231,7 @@ module.exports = {
     let total = await orderHelpers.getTotalAmount(req.session.user._id);
     let wishlistCount = await wishlistHelpers.wishlistCount(userId);
     total=total?.total;
-    console.log(total, "carttotal1");
+    // console.log(total, "carttotal1");
     res.render("users/cart", {
       layout: "layout",
       products,
@@ -245,7 +245,7 @@ module.exports = {
   },
 
   checkoutPage: async (req, res) => {
-    console.log("kjhgfd");
+    // console.log("kjhgfd");
     // let category= await categoryHelpers.allCategory()
     // let products = await productHelpers.allProducts()
     // console.log(req.session.user._id, "efdvb");
@@ -254,7 +254,7 @@ module.exports = {
     let cartCount = await userHelpers.getCartCount(req.session.user);
     let cartProduct = await cartHelpers.getCartProducts(userId);
     let cartTotal = await orderHelpers.getCheckOutData(req.session.user._id);
-  console.log(cartTotal,"yyy");
+  // console.log(cartTotal,"yyy");
     let products = await cartHelpers.getCartProducts(req.session.user._id);
     let wishlistCount = await wishlistHelpers.wishlistCount(userId);
     let address = await db.address.find({ userId: req.session.user._id });
@@ -353,7 +353,7 @@ coupondata,
       orderHelpers
         .userOrderDetails(req.session.user._id, req.params.id)
         .then((orders) => {
-          console.log(orders,"order");
+          // console.log(orders,"order");
           res.render("user/userOrderDetails", {
             layout: "layout",
             orders,
@@ -398,10 +398,10 @@ coupondata,
   },
 
   changeProductQuantity: (req, res) => { 
-    console.log(req.body,"kkkkkkkkkkkkkkkkkkkkk");
+    // console.log(req.body,"kkkkkkkkkkkkkkkkkkkkk");
     cartHelpers.doChangeProductQuantity(req.body).then(async(response) => {
      response.total= await orderHelpers.getTotalAmount(req.session.user._id)
-      console.log(response.total);
+      // console.log(response.total);
       res.json(response);
     });
   },
@@ -424,9 +424,9 @@ coupondata,
   placeOrder: async (req, res) => {
     // console.log(req.body, "vf");
     let total = await orderHelpers.getTotalAmount(req.session.user._id);
-    console.log(couponPrice,"log couponPrice in placeorder");
+    // console.log(couponPrice,"log couponPrice in placeorder");
     total = total - couponPrice
-    console.log(total, "total");
+    // console.log(total, "total");
     userHelpers
       .placeOrder(req.body, total, req.session.user._id,couponPrice)
       .then(async (response) => {
@@ -445,14 +445,14 @@ coupondata,
       });
   },
   cancelOrder: (req, res) => {
-    console.log(req.body, "body");
+    // console.log(req.body, "body");
     userHelpers.cancelOrder(req.body, req.session.user).then(() => {
       res.json({ status: true });
     });
   },
   returnOrder:(req,res)=>{
     userHelpers.returnProduct(req.body,req.session.user._id).then((response)=>{
-      console.log('return order',response);
+      // console.log('return order',response);
       res.send(response)
     })
   },
@@ -464,7 +464,7 @@ coupondata,
   },
   checkoutPost: async (req, res) => {
     let total = await userHelpers.getTotalAmount(req.session.user._id);
-    console.log(total,'users-controllers');
+    // console.log(total,'users-controllers');
     
     userHelpers.placeOrder(req.body, total).then((response) => {
       if (req.body.payment == "COD") {
@@ -493,12 +493,12 @@ coupondata,
       });
   },
   autofill: (req, res) => {
-    console.log("hello");
+    // console.log("hello");
     userId = req.session.user._id;
     addrsId = req.params.id;
     cartHelpers.autofill(userId, addrsId).then((data) => {
-      console.log(data, "ppppppppppp");
-      console.log(data[0], "my address");
+      // console.log(data, "ppppppppppp");
+      // console.log(data[0], "my address");
       res.send(data[0].address);
     });
   },
@@ -572,7 +572,7 @@ coupondata,
    
       let couponName= req.body.couponName
       let total = await userHelpers.getTotalCount(req.session.user._id)
-      console.log(total,"kk");
+      // console.log(total,"kk");
       couponHelpers.applyCoupon(couponName,req.session.user,total).then((response)=>{
         couponPrice = response.discountAmount
         res.json(response)
