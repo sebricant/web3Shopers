@@ -252,7 +252,7 @@ module.exports = {
   getCoupenCode:async(req,res)=>{
     try{
       let couponCode= await voucherCodes.generate({
-        prefix:'Evara-',
+        prefix:'web3Shop-',
         length:5,
         count:1
       })
