@@ -48,7 +48,7 @@ router.get('/adminLogout',adminController.adminDoLogout)
 
 router.get('/dashboard',auth.verifyAdmin,adminController.adminDashboard)
 
-router.get('/addproduct',auth.verifyAdmin,adminController.adminAddProduct)
+router.get('/addProduct',auth.verifyAdmin,adminController.adminAddProduct)
 
 router.get('/addCategory',auth.verifyAdmin,adminController.adminAddCategory)
 
@@ -65,7 +65,7 @@ router.get('/orderDetails/:id',auth.verifyAdmin,adminController.adminOrderDetail
 router.post("/updateOrderStatus",auth.verifyAdmin,adminController.updateOrderStatus)
 
 
-router.post("/addproduct", upload.array("Image"),adminController.addProducts);
+router.post("/addProduct", upload.array("Image"),adminController.addProducts);
 
 router.post('/addCategory',adminController.postAddCategory)
 
