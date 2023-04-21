@@ -42,7 +42,7 @@ module.exports = {
   },
   adminAddProduct: async (req, res) => {
     let category = await categoryHelpers.allCategory();
-    res.render("admin/addproduct", {
+    res.render("admin/addProduct", {
       layout: "adminLayout",
       sidebar: true,
       header: true,
