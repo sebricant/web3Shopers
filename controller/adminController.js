@@ -428,7 +428,7 @@ generateSalesReport: async (req, res) => {
     let monthWise = await sales.monthWiseSales()
     console.log(monthly,"monthly data")
     console.log(yearly,"yearly data")
-    res.render('admin/SalesReport', {layout:"adminLayout", sidebar: true, monthly, yearly, daily, monthWise })
+    res.render('/admin/SalesReport', {layout:"adminLayout", sidebar: true, monthly, yearly, daily, monthWise })
 },
 
 //generateReportPDF

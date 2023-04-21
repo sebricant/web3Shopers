@@ -114,7 +114,9 @@
 
             <td><%= element.orders.paymentMethod %></td>
             <% if(element.orders.status==false){ %> 
-                <td></td>
+                <td>
+                    
+                </td>
                 <% }else{ %> 
             <td><button class="dropdown-item " style="color: red;" type="button" onclick="cancelOrder('<%= element.orders.productDetails[0]._id %>','<%= element.orders._id %>')">Cancel Order</button></td>
             <% } %> 
