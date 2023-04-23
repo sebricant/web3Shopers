@@ -1,4 +1,6 @@
-// const db =require('../model/connection')
+
+// required all the neccessary helpers and declared admin login and password.
+
 const userHelpers = require("../helpers/userHelpers");
 const sales = require('../helpers/salesHelpers')
 var adminEmail = "admin@gmail.com";
@@ -13,9 +15,14 @@ const orderHelpers = require("../helpers/orderHelpers");
 const voucherCodes = require('voucher-code-generator');
 
 module.exports = {
+
+  // rendering admin login page.
+
   adminLogin: (req, res) => {
     res.render("admin/login", { layout: "adminLayout" });
   },
+  // checking login and password.
+
   postLogin: (req, res) => {
     const { email, password } = req.body;
     if (email == adminEmail && password == adminPassword) {
@@ -25,6 +32,8 @@ module.exports = {
       res.send({ value: "failed" });
     }
   },
+  // rendering admin Dashboard and passing required data's to frontend.
+
   adminDashboard: async (req, res) => {
     let category = await categoryHelpers.allCategory();
     let products = await productHelpers.allProducts();
@@ -40,6 +49,9 @@ module.exports = {
       monthly,
     });
   },
+
+  // rendering admin Addproduct page.
+
   adminAddProduct: async (req, res) => {
     let category = await categoryHelpers.allCategory();
     res.render("admin/addProduct", {
@@ -49,6 +61,9 @@ module.exports = {
       category,
     });
   },
+
+  // rendering admin add Category page.
+
   adminAddCategory: (req, res) => {
     res.render("admin/addCategory", {
       layout: "adminlayout",
@@ -56,6 +71,9 @@ module.exports = {
       header: true,
     });
   },
+ 
+  // rendering admin product management page and passing required data's.
+
   adminProductMgt: async (req, res) => {
     let data = req.query;
     let products = await productHelpers.allProducts(data);
@@ -66,6 +84,9 @@ module.exports = {
       products,
     });
   },
+
+  //rending admin order Management page and passing order details. 
+
   AdminorderMgt: async (req, res) => {
     userHelpers.adminorderdetails().then((orders) => {
       res.render("admin/orderMgt", {
@@ -76,6 +97,9 @@ module.exports = {
       });
     });
   },
+
+  // renderin order Details page and passing individual order details data.
+
   adminOrderDetails: (req, res) => {
     try {
       orderHelpers
@@ -90,12 +114,18 @@ module.exports = {
         });
     } catch (error){}
   },
+
+  // updating order status.
+
   updateOrderStatus: (req, res) => {
    
     userHelpers.updateOrderStatus(req.body, req.session.user).then(() => {
       res.json({ status: true });
     });
   },
+   
+  // rendering admin category Management page and passing category data's.
+
   adminCategoryMgt: async (req, res) => {
     let category = await categoryHelpers.allCategory();
     res.render("admin/categoryMgt", {
@@ -105,6 +135,9 @@ module.exports = {
       category,
     });
   },
+
+  // delete admin category.
+
   adminDeleteCategory: (req, res) => {
     let catId = req.params.id;
     // console.log(catId);
@@ -116,17 +149,26 @@ module.exports = {
       }
     });
   },
+
+  // sending add product data's.
+
   PostadminAddProduct: async (req, res) => {
     // console.log(req);
     // let data=await db.product(req.body)
     // data.save()
     res.send({ staus: true });
   },
+
+  // admin logout .
+
   adminDoLogout: (req, res) => {
     // console.log("lkjfklasdjfklasdjfalksj");
     req.session.adminLogin = false;
     res.redirect("/admin/login");
   },
+
+  // admin add product and redirecting to product mgt page.
+
   addProducts: (req, res) => {
     // console.log(req.body);
     const files = req.files;
@@ -141,6 +183,9 @@ module.exports = {
       res.redirect("/admin/productMgt");
     });
   },
+
+  // sending add category data.
+
   postAddCategory: (req, res) => {
     const name = req.body.name;
     const category = {
@@ -151,6 +196,9 @@ module.exports = {
       res.redirect("/admin/categoryMgt");
     });
   },
+
+  // rendering edit product page and passing data.
+
   doEditProduct: async (req, res) => {
     let newProduct = await productHelpers.getProduct(req.params.id);
     let category = await categoryHelpers.allCategory();
@@ -161,6 +209,9 @@ module.exports = {
       category,
     });
   },
+
+  // editing product details 
+
   adminEditProducts: async (req, res) => {
     // console.log(req.body, "edit product");
     try {
@@ -201,6 +252,9 @@ module.exports = {
       res.render("error", { errmessage: error.message });
     }
   },
+
+  // rendering edit category page.
+
   doEditCategory: async (req, res) => {
     let newcategory = await categoryHelpers.getCategory(req.params.id);
     res.render("admin/editCategory", {
@@ -209,11 +263,17 @@ module.exports = {
       newcategory,
     });
   },
+
+  // edit category data passing.
+
   adminEditCategory: async (req, res) => {
     categoryHelpers.admineditCategory(req.params.id, req.body).then(() => {
       res.redirect("/admin/categoryMgt");
     });
   },
+
+  // deleting product.
+
   adminDeleteProduct: (req, res) => {
     let proId = req.params.id;
     // console.log(proId);
@@ -225,6 +285,9 @@ module.exports = {
       }
     });
   },
+
+  // rendering user Management page and checking session.
+
   douser: (req, res) => {
     if (req.session.adminLogin) {
       userHelpers.getuser().then((users) => {
@@ -237,18 +300,27 @@ module.exports = {
       });
     }
   },
+
+  // blocking user.
+
   getBlockUser: function (req, res) {
     let userId = req.params.id;
     userHelpers.doBlockUser(userId).then(() => {
       res.redirect("/admin/userMgt");
     });
   },
+
+  //unblocking user. 
+
   getUnBlockUser: function (req, res) {
     let userId = req.params.id;
     userHelpers.doUnblockUser(userId).then(() => {
       res.redirect("/admin/userMgt");
     });
   },
+
+  // generating coupon code.
+
   getCoupenCode:async(req,res)=>{
     try{
       let couponCode= await voucherCodes.generate({
@@ -261,6 +333,9 @@ module.exports = {
       console.log(error)
     }
   },
+
+  // rendering coupon Mgt page.
+
   getcouponMgt: async(req,res)=>{
     try{
       let admin = req.admin
@@ -273,6 +348,9 @@ module.exports = {
       console.log(error);
     }
   },
+
+  // rendering add coupon page.
+
   getaddCoupon:(req,res)=>{
     try{
       let admin= req.admin;
@@ -281,6 +359,9 @@ module.exports = {
       console.log(error);
     }
   },
+
+  // sending add coupon data.
+
   postaddCoupon:(req,res)=>{
     // console.log("khgfghj");
     try{
@@ -303,12 +384,17 @@ module.exports = {
       console.log(error);
     }
   },
+
+  // rendering banner Management page.
+
   banner:(req,res)=>{
     res.render("admin/bannerMgt",{
       layout:'adminLayout',
       sidebar:true,
     })
   },
+
+  // rendering banner Management page.
 
   bannerMgt:(req,res)=>{
     bannerHelpers.banner().then((banner)=>{
@@ -318,13 +404,18 @@ module.exports = {
         banner})
     })
   },
-   
+  
+  // renderring add banner page.
+
   addBanner:(req,res)=>{
     categoryHelpers.getcategory().then((categories) => {
     res.render('admin/addBanner',{  layout:"adminLayout",categories,
     sidebar:true,})
   })
   },
+
+  // rendering add banner data.
+
   addBannerPost:(req,res)=>{
 
     const files = req.files;
@@ -338,6 +429,9 @@ module.exports = {
       res.redirect("/admin/banner")
     })
     },
+
+    // rendering all banner list and details.
+
     bannerList:async(req,res)=>{
       let banner = await bannerHelpers.getAllBanners()
       res.render("admin/bannerList",{
@@ -347,6 +441,8 @@ module.exports = {
       })
     },
 
+    // deleting banner.
+
     deleteBanner:(req,res)=>{
     let bannerId = req.params.id
     console.log(bannerId,'bannerId');
@@ -354,6 +450,9 @@ module.exports = {
       res.redirect('/admin/bannerList')
     })
     },
+
+    // editing banner page.
+
     editBannerPage:(req,res)=>{
       bannerHelpers.editBanner(req.params.id).then((data)=>{
         res.render('admin/editBanner',{
@@ -363,6 +462,9 @@ module.exports = {
         })
       })
     },
+
+    // rendering category banner page.
+
     getCatagoryBanner:async(req,res)=>{
       let catagoryBanner = await productHelpers.getCatagoryBanner()
       // console.log(catagoryBanner,'categoryBanner');
@@ -372,6 +474,9 @@ module.exports = {
         catagoryBanner
       })
     },
+
+    //rendering add category banner page. 
+
     addCategoryBanner:async(req,res)=>{
       let category = await categoryHelpers.allCategory();
       res.render('admin/addcategoryBanner',{
@@ -380,6 +485,9 @@ module.exports = {
         category
       })
     },
+
+    // sending add category banner data.
+
     addCategoryBannerPost:(req,res)=>{
       const files = req.files;
       const fileName = files.map((file) => {
@@ -392,6 +500,9 @@ module.exports = {
         res.redirect('/admin/categoryBanner')
       })
     },
+
+    // deleting category banner.
+
     deleteCategoryBanner:(req,res)=>{
       // console.log("idhihi",req.params.id);
       try {
@@ -402,6 +513,9 @@ module.exports = {
         console.log(error);
       }
   },
+
+  // revenue GraphMonthly data.
+
   revenueGraphMonth: async (req, res) => {
    
     try {
@@ -419,7 +533,9 @@ module.exports = {
         console.log(err)
     }
 },
-// generateSalesReport
+
+
+  // generateSalesReport
 
 generateSalesReport: async (req, res) => {
     let yearly = await sales.yearlySales()
@@ -431,7 +547,7 @@ generateSalesReport: async (req, res) => {
     res.render('admin/salesReport', {layout:"adminLayout", sidebar: true, monthly, yearly, daily, monthWise })
 }
 ,
-//generateReportPDF
+    //generateReportPDF
 
 generateReportPDF: (req, res) => {
     sales.monthlySales().then((response) => {
