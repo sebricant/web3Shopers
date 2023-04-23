@@ -1,3 +1,6 @@
+
+// requiring all the neccessary helpers.
+
 const e = require("express");
 require("dotenv").config(); 
 const userHelpers = require("../helpers/userHelpers");
@@ -49,6 +52,8 @@ const paypalClient = new paypal.core.PayPalHttpClient(
 
 module.exports = {
   
+  // renderin user landing page.
+
   landingPage: async(req, res) => {
     let userId = req.session?.user?._id;
     let category = await categoryHelpers.allCategory();
@@ -65,13 +70,21 @@ module.exports = {
       categoryBanner,
       cartProduct });
   },
+
+  // rendering signup Page.
+
   signupPage: (req, res) => {
     res.render("users/signup", { layout: "layout" });
   },
+
+  //rendering login Page. 
+
   loginPage: (req, res) => {
     res.render("users/login", { layout: "layout" });
   },
   
+  // rendering shopping page and passing neccessary data.
+
   shopPage: async (req, res) => {
     let user = req.session.user;
     let userId = req.session.user._id;
@@ -93,9 +106,15 @@ module.exports = {
       header: true,
     });
   },
+
+  // rendering login OTP page.
+
   loginOTPPage: (req, res) => {
     res.render("users/loginWithOTP", { layout: "layout" });
   },
+
+  // checking and sending signup data.
+
   signupPost: (req, res) => {
     // console.log(req.body);
     userHelpers.doSignup(req.body).then((response) => {
@@ -109,6 +128,9 @@ module.exports = {
       }
     });
   },
+
+  // sending login status.
+
   loginPost: (req, res) => {
     // console.log("asdfd", req.body);
     userHelpers.loginPost(req.body).then((response) => {
@@ -121,14 +143,23 @@ module.exports = {
       }
     });
   },
+
+  // user logging out .
+
   dologout: (req, res) => {
     req.session.loggedIn = false;
     req.session.user = "";
     res.redirect("/login");
   },
+
+  // rendering get OTP page.
+
   doGetOTPLogin: function (req, res) {
     res.render("users/loginWithOTP", { user: false });
   },
+
+  //Authenticating OTP login. 
+
   getOTPLogin: async (req, res) => {
     try {
       const mobileNumber = req.query.phoneNumber.slice(2);
@@ -158,11 +189,15 @@ module.exports = {
       res.send({ status: false });
     }
   },
+
+  //rendering getverifyotp page
+
   doGetVerifyOTP: (req, res) => {
     guestuser = req.session.userData;
     let otpNumber = req.params.id;
     res.render("users/otpLogin", { otpNumber, guestuser, user: false });
   },
+  // authenticating OTP.
   getotpsVerify: (req, res) => {
     console.log(req.query.phoneNumber);
     client1.verify
@@ -181,8 +216,10 @@ module.exports = {
         }
       });
   },
+
+  // renderin product page and passing data.
+
   productPage: async (req, res) => {
-    // console.log(req.params.id, "jhg");
     let user = req.session.user;
     let userId = req.session.user._id;
     let cartCount = await userHelpers.getCartCount(req.session.user);
@@ -192,6 +229,9 @@ module.exports = {
 
     res.render("users/productview", { user: user, product,cartProduct,cartCount,wishlistCount});
   },
+
+  // rendering wishlist page and passing data.
+
   wishListPage: async (req, res) => {
     let userId = req.session.user._id;
     let products = await userHelpers.getWishlistProducts(userId);
@@ -209,6 +249,9 @@ module.exports = {
       user: userId,
     });
   },
+
+  //rendering payment success page.
+
   successPage:async(req, res) => {
     let user = req.session.user;
     let userId = req.session.user._id;
@@ -223,6 +266,8 @@ module.exports = {
       cartProduct,});
   },
 
+  // rendering cart page and passing data.
+
   cartPage: async (req, res) => {
     let userId = req.session.user._id;
     let category = await categoryHelpers.allCategory();
@@ -231,7 +276,6 @@ module.exports = {
     let total = await orderHelpers.getTotalAmount(req.session.user._id);
     let wishlistCount = await wishlistHelpers.wishlistCount(userId);
     total=total?.total;
-    // console.log(total, "carttotal1");
     res.render("users/cart", {
       layout: "layout",
       products,
@@ -244,22 +288,20 @@ module.exports = {
     });
   },
 
+  // rendering checkout page and passing data.
+
   checkoutPage: async (req, res) => {
-    // console.log("kjhgfd");
     // let category= await categoryHelpers.allCategory()
     // let products = await productHelpers.allProducts()
-    // console.log(req.session.user._id, "efdvb");
     let userId = req.session.user._id;
     let category = await categoryHelpers.allCategory();
     let cartCount = await userHelpers.getCartCount(req.session.user);
     let cartProduct = await cartHelpers.getCartProducts(userId);
     let cartTotal = await orderHelpers.getCheckOutData(req.session.user._id);
-  // console.log(cartTotal,"yyy");
     let products = await cartHelpers.getCartProducts(req.session.user._id);
     let wishlistCount = await wishlistHelpers.wishlistCount(userId);
     let address = await db.address.find({ userId: req.session.user._id });
     let coupondata = await couponHelpers.getallcoupon();
-    // console.log(cartTotal,"usercontrollers total");
     res.render("users/checkouts", {
       layout: "layout",
       products,
@@ -275,12 +317,16 @@ coupondata,
     });
   },
 
+  // adding new address for individual user.
+
   addNewaddres: (req, res) => {
     let userId = req.session.user._id;
     userHelpers.addNewAddress(req.body,userId).then(() => {
       res.send("address added");
     });
   },
+
+  // rendering user account page.
 
   accountPage: async (req, res) => {
     let userId = req.session.user._id;
@@ -291,10 +337,7 @@ coupondata,
     let wishlistCount = await wishlistHelpers.wishlistCount(userId);
     let cartCount = await userHelpers.getCartCount(req.session.user);
     let address = await userHelpers.addressDetails(req.session.user._id);
-
-    // console.log(cartCount, "frgn");
     userHelpers.orderdetails(req.session.user._id).then((orders) => {
-      // console.log(address, "hihi");
       res.render("users/account", {
         address,
         cartProduct,
@@ -310,6 +353,9 @@ coupondata,
       });
     });
   },
+
+  // rendering orders page.
+
   ordersPage:async (req, res) => {
     let userId = req.session.user._id;
     let category = await categoryHelpers.allCategory();
@@ -339,6 +385,9 @@ coupondata,
       });
     });
   },
+
+  // rendering order details page and passing data.
+
   userOrderDetails:async(req,res)=>{
     let userId = req.session.user._id;
     let category = await categoryHelpers.allCategory();
@@ -369,14 +418,19 @@ coupondata,
         });
     } catch (error){}
   },
+
+  // adding product to wishlist.
+
   addToWishlist: (req, res) => {
-    // console.log(req.session.user._id, "test2");
     wishlistHelpers
       .addtoWishList(req.params._id, res.session.user._id)
       .then(() => {
         res.json({ status: true });
       });
   },
+
+  //deleting product from wishlist. 
+
   deleteproductFromWishlist: async (req, res) => {
     const proId = req.params.id;
     const userId = req.session._id;
@@ -390,6 +444,8 @@ coupondata,
     res.json({ status: true });
   },
 
+  // adding product to cart.
+
   addtoCart: (req, res) => {
     // console.log(req.session.user._id, "hgj");
     cartHelpers.addtoCart(req.params.id, req.session.user._id).then(() => {
@@ -397,18 +453,25 @@ coupondata,
     });
   },
 
+  // changing product quantity.
+
   changeProductQuantity: (req, res) => { 
-    // console.log(req.body,"kkkkkkkkkkkkkkkkkkkkk");
     cartHelpers.doChangeProductQuantity(req.body).then(async(response) => {
      response.total= await orderHelpers.getTotalAmount(req.session.user._id)
       // console.log(response.total);
       res.json(response);
     });
   },
+
+  // rendering products in cart page.
+
   getcart: async (req, res) => {
     let products = await cartHelpers.getCartProducts(req.session._id);
     res.render("user/cart", { products });
   },
+
+  // deleting product from cart
+
   deleteproductFromCart: async (req, res) => {
     const proId = req.params.id;
     const userId = req.session._id;
@@ -421,12 +484,12 @@ coupondata,
     response.cartItems = cartItems.length;
     res.json({ status: true });
   },
+
+  // placing order with multiple options.
+
   placeOrder: async (req, res) => {
-    // console.log(req.body, "vf");
     let total = await orderHelpers.getTotalAmount(req.session.user._id);
-    // console.log(couponPrice,"log couponPrice in placeorder");
     total = total - couponPrice
-    // console.log(total, "total");
     userHelpers
       .placeOrder(req.body, total, req.session.user._id,couponPrice)
       .then(async (response) => {
@@ -444,28 +507,37 @@ coupondata,
         }
       });
   },
+
+  // canceling order.
+
   cancelOrder: (req, res) => {
-    // console.log(req.body, "body");
     userHelpers.cancelOrder(req.body, req.session.user).then(() => {
       res.json({ status: true });
     });
   },
+
+  // returning order.
+
   returnOrder:(req,res)=>{
     userHelpers.returnProduct(req.body,req.session.user._id).then((response)=>{
-      // console.log('return order',response);
       res.send(response)
     })
   },
+
+  // geting user Address.
+
   getAddress: (req, res) => {
     let addrId = req.params.id;
     userHelpers.getSingleAddress(addrId, req.session.user).then((data) => {
       res.json(data);
     });
   },
+
+  // sending checkout data.
+
   checkoutPost: async (req, res) => {
     let total = await userHelpers.getTotalAmount(req.session.user._id);
-    // console.log(total,'users-controllers');
-    
+
     userHelpers.placeOrder(req.body, total).then((response) => {
       if (req.body.payment == "COD") {
         res.send({ success: true });
@@ -478,6 +550,9 @@ coupondata,
       }
     });
   },
+
+  // verifing payment and changing payment status.
+
   verifyPayment: (req, res) => {
     userHelpers
       .verifyPayment(req.body)
@@ -492,6 +567,9 @@ coupondata,
         res.json({ status: false });
       });
   },
+
+  // autofilling address data.
+
   autofill: (req, res) => {
     // console.log("hello");
     userId = req.session.user._id;
@@ -502,6 +580,8 @@ coupondata,
       res.send(data[0].address);
     });
   },
+
+  // payment through paypal.
 
   paypalOrder: async (req, res) => {
     let total = req.body.total;
@@ -537,6 +617,9 @@ coupondata,
       res.status(500).json({ error: e.message });
     }
   },
+
+  // payment success and changing payment status.
+
   paypalSuccess: async (req, res) => {
     const ordersDetails = await db.orders.find({ userId: req.session.user });
     let orders = ordersDetails[0].orders.slice().reverse();
@@ -547,6 +630,9 @@ coupondata,
       res.json({ status: true });
     });
   },
+
+  // verifing coupon.
+
   verifyCoupon:(req,res)=>{
     try{
       let couponName=req.body.coupon
@@ -557,6 +643,9 @@ coupondata,
 
     }
   },
+
+  // checking coupon.
+
   checkCoupon:(req,res)=>{
     try{
       let couponCheck = req.body.couponCheck
@@ -567,6 +656,9 @@ coupondata,
 
     }
   },
+
+  // applying coupon.
+
   applyCoupon:async(req,res)=>{
     try{
    
@@ -581,6 +673,9 @@ coupondata,
 
     }
   },
+
+  // returning product
+
   returnProduct:(req,res)=>{
     try{
       let obj={
