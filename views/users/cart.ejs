@@ -146,11 +146,11 @@
         quantity:quantity,
       },
       method: 'put',
-      beforeSend:()=>{
+      // beforeSend:()=>{
        
-          return confirm(quantity,'are you sure')
+      //     return confirm(quantity,'are you sure')
         
-      },
+      // },
       success: (response) => {
         console.log(response,"kk");
         if(response.removeProductFromCart){
