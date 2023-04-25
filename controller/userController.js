@@ -79,9 +79,24 @@ module.exports = {
 
   //rendering login Page. 
 
-  loginPage: (req, res) => {
+  loginPage:async (req, res) => {
     if(req.session.loggedIn == false){
       res.render("users/login", { layout: "layout" });
+    }else{
+      let userId = req.session?.user?._id;
+      let category = await categoryHelpers.allCategory();
+      let cartCount = await userHelpers.getCartCount(userId);
+      let cartProduct = await cartHelpers.getCartProducts(userId);
+      let wishlistCount = await wishlistHelpers.wishlistCount(userId);
+      let bannerdata = await bannerHelpers.getAllBanners();
+      let user = req.session.user;
+      let categoryBanner = await productHelpers.getCatagoryBanner()
+      res.render("index", { user: user ,category,
+        cartCount,
+        wishlistCount,
+        bannerdata,
+        categoryBanner,
+        cartProduct });
     }
   },
   
