@@ -80,7 +80,9 @@ module.exports = {
   //rendering login Page. 
 
   loginPage: (req, res) => {
-    res.render("users/login", { layout: "layout" });
+    if(req.session.loggedIn == false){
+      res.render("users/login", { layout: "layout" });
+    }
   },
   
   // rendering shopping page and passing neccessary data.
