@@ -82,6 +82,7 @@
                   <tbody>
                     <% let total=0 %>
                     <% products.forEach(elements=>{ %>
+                      <%= console.log(elements.products.price); %>
                     <%  total = (elements.products.price+total)*elements.quantity %>
                     <% })%>
                     <tr>
