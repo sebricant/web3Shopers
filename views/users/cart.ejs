@@ -80,11 +80,13 @@
               <div class="table-responsive">
                 <table class="table">
                   <tbody>
+                    <% let total1=0 %>
                     <% let total=0 %>
                     <% products.forEach(elements=>{ %>
                       <%= console.log(elements.products.price,"price"); %>
                       <%= console.log(total,"total"); %>
-                    <%  total = (elements.products.price+total)*elements.quantity %>
+                    <%  total1 = (elements.products.price)*elements.quantity %>
+                    <% total= total+total1 %>
                     <% })%>
                     <tr>
                       <td class="cart_total_label">Cart Subtotal</td>
