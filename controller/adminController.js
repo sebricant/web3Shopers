@@ -66,7 +66,7 @@ module.exports = {
 
   adminAddCategory: (req, res) => {
     res.render("admin/addCategory", {
-      layout: "adminlayout",
+      layout: "adminLayout",
       sidebar: true,
       header: true,
     });
