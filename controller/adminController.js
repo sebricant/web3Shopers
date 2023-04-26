@@ -479,7 +479,7 @@ module.exports = {
 
     addCategoryBanner:async(req,res)=>{
       let category = await categoryHelpers.allCategory();
-      res.render('admin/addcategoryBanner',{
+      res.render('admin/addCategoryBanner',{
         layout:'adminLayout',
         sidebar:true,
         category
