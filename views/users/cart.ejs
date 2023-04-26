@@ -83,7 +83,7 @@
                     <% let total=0 %>
                     <% products.forEach(elements=>{ %>
                       <%= console.log(elements.products.price,"price"); %>
-                      <% =console.log(total,"total"); %>
+                      <%= console.log(total,"total"); %>
                     <%  total = (elements.products.price+total)*elements.quantity %>
                     <% })%>
                     <tr>
